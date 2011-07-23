@@ -46,7 +46,7 @@
                 combineCalls: 'Why not combine these calls by passing an object? E.g. \n%0(%1)',
                 methodTwice: "You've called %0(%1) more than once on the same jQuery object",
                 triggeredBy: 'Triggered by %0 event',
-                notBestMethod: 'Insted of accessing the property via %0(%1), use %2 insted',
+                notBestMethod: 'Insted of accessing the property via %0(%1), use %2 instead',
                 event: 'Event:',
                 handler: 'Handler:',
                 location: 'Location:',
@@ -754,7 +754,7 @@
                     var args = [].splice.call(arguments,0);
                     return lint.langs[lint.lang].notBestMethod.replace(/%0/, method)
                                                               .replace(/%1/, args.join(', '))
-                                                              .replace(/%2/, attributes.match);
+                                                              .replace(/%2/, attributes[match]);
                 }
             }
         });
