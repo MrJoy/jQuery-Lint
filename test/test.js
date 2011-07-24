@@ -158,6 +158,25 @@ test('live()/delegate()', function(){
     }
 });
 
+test('trigger and events', function(){
+    expect(5);
+
+    // working
+    $('<a/>').trigger('click', {});
+    $('<a/>').trigger('click');
+    $('<a/>').trigger(new jQuery.Event);
+    $('<a/>').triggerHandler('click', {});
+    $('<a/>').triggerHandler('click');
+
+    // failing
+    $('<a/>').trigger(function() {});
+    $('<a/>').trigger([]);
+    $('<a/>').trigger();
+    $('<a/>').triggerHandler();
+    $('<a/>').triggerHandler(new jQuery.Event);
+});
+
+
 
 test('short event-handlers', function(){
     expect(1);

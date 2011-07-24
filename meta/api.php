@@ -110,6 +110,13 @@ class Api_Parser {
                             $aArg['type'] = 'Object, Function';
                             $aArg['multiple'] = true;
                         }
+                        elseif ($aArg['name'] === 'extraParameters' and $aArg['type'] === 'Object') {
+                            $aArg['optional'] = true;
+                        }
+                        elseif ($aArg['name'] === 'extraParameters' and $aArg['type'] === 'Array') {
+                            $aArg['optional'] = true;
+                            $aArg['type'] = 'Object';
+                        }
                         elseif ($aArg['name'] === 'value' and $aArg['type'] === 'Object') {
                             // hack to catch data-internal-usage
                             $aArg['type'] = '*';
