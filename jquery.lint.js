@@ -131,13 +131,9 @@
         ],
 
         addCheck = function(methodName, level, check) {
-
             level = Math.min(3, ~~level);
-
             (checks[level][methodName] || (checks[level][methodName] = [])).push(check);
-
             return lint;
-
         },
 
         lint = {
@@ -256,8 +252,7 @@
             },
             array: function(o) {
                 // Just check that it's "array-like"
-                return o && o.length !== undefined
-                        && typeof o !== 'string' && !isFunction(o);
+                return o && o.length !== undefined && typeof o !== 'string' && !isFunction(o);
             },
             jquery: function(o) {
                 return o instanceof _jQuery;
@@ -455,7 +450,7 @@
                 // Cover functions so that the internal flag
                 // is disabled before they are called
                 each(args, function(i, fn){
-                    if (typeof fn == 'function') {
+                    if (typeof fn === 'function') {
                         args[i] = function() {
                             /*Run it as non-internal*/
                             return runFunction(fn, arguments, _internal, this);
@@ -482,7 +477,7 @@
     lint.registerMethod = registerMethod;
 
     function coverMethod(name, meth, args) {
-        if (name == 'jQuery' && args.length == 3 && typeof(args[2]) == 'object') {
+        if (name === 'jQuery' && args.length === 3 && typeof(args[2]) === 'object') {
             delete args[2];
         }
 
@@ -703,10 +698,9 @@
             if (lint.enabledReports.slowSelector) {
                 var slowSelectors = [];
                 var selectors = selector.split(',');
-                for (i in selectors) {
+                for (var i in selectors) {
                     var tSelector = _jQuery.trim(selectors[i]);
-                    if ((/(^|\w*?\s)\.\w/.test(tSelector) && (typeof context !== "object" || !context.length))
-                        || /^(.+)#\w/.test(tSelector)) {
+                    if ((/(^|\w*?\s)\.\w/.test(tSelector) && (typeof context !== "object" || !context.length)) || /^(.+)#\w/.test(tSelector)) {
                         slowSelectors.push(tSelector);
                     }
                 }
@@ -741,9 +735,9 @@
         addCheck(method, 3, function() {
             if (typeof arguments !== 'undefined' && typeof attributes === 'object') {
                 var match = false;
-                for (m in arguments) {
-                    if (attributes.hasOwnProperty(arguments[m])) {
-                        match = arguments[m];
+                for (var i in arguments) {
+                    if (attributes.hasOwnProperty(arguments[i])) {
+                        match = arguments[i];
                     }
                 }
 
@@ -793,8 +787,7 @@
                                 .replace(/%1/, '{\n' +
                                     map([args, hoc._lastMethodArgs], function(a){
                                         return '  "' + a[0] + '": ' + typeToString(a[1]);
-                                    }).join(',\n')
-                                + '\n}')
+                                    }).join(',\n') + '\n}')
                         );
 
                     _console.groupEnd();
