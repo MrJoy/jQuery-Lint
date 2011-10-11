@@ -1,25 +1,27 @@
 // TODO: TEST NESTED FUNCTION CALLS E.g. filter(function(){ .. some invalid call .. })
 (function($){
 
-jQuery.LINT.console = {
-    group:function(a,b,c){
-        //window.console.group.apply(null, arguments);
-    },
-    groupCollapsed:function(a,b,c){
-        //window.console.groupCollapsed.apply(null, arguments);
-    },
-    groupEnd:function(a,b,c){
-        //window.console.groupEnd.apply(null, arguments);
-    },
-    log:function(a,b,c){
-        //window.console.log.apply(null, arguments);
-    },
-    warn: function(a, e) {
-        if ((e instanceof Error) || /syntax error/i.test(e)) { return; }
-        //window.console.warn.apply(null, arguments);
-        ok(true, a);
-    }
-};
+test('init', function() {
+    jQuery.LINT.console = {
+        group:function(a,b,c){
+            //window.console.group.apply(null, arguments);
+        },
+        groupCollapsed:function(a,b,c){
+            //window.console.groupCollapsed.apply(null, arguments);
+        },
+        groupEnd:function(a,b,c){
+            //window.console.groupEnd.apply(null, arguments);
+        },
+        log:function(a,b,c){
+            //window.console.log.apply(null, arguments);
+        },
+        warn: function(a, e) {
+            if ((e instanceof Error) || /syntax error/i.test(e)) { return; }
+            //window.console.warn.apply(null, arguments);
+            ok(true, a);
+        }
+    };
+});
 
 jQuery.ajaxSetup({
     xhr: function(){
