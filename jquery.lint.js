@@ -227,7 +227,7 @@
 
             // Shave "undefined" off the end of args
             for (var i = arr.length; i--;) {
-                if (arr[i] === undefined) {
+                if (typeof arr[i] === 'undefined') {
                     arr.splice(i, 1);
                 } else {
                     break;
@@ -252,7 +252,7 @@
             },
             array: function(o) {
                 // Just check that it's "array-like"
-                return o && o.length !== undefined && typeof o !== 'string' && !isFunction(o);
+                return o && typeof o.length !== 'undefined' && typeof o !== 'string' && !isFunction(o);
             },
             jquery: function(o) {
                 return o instanceof _jQuery;
@@ -366,7 +366,7 @@
             matches = isValidType(sigArg.type, args[argIndex]);
             if (!matches) {
                 if (sigArg.optional) {
-                    if (args[argIndex] === undefined || args[argIndex] === null) {
+                    if (typeof args[argIndex] === 'undefined' || args[argIndex] === null) {
                         ++argIndex;
                         matches = true;
                     }
@@ -768,7 +768,7 @@
             }
 
             if (!internal && !types.object(args[0]) && (
-                    (/^(css|attr)$/.test(methodName) && args[1] !== undefined) ||
+                    (/^(css|attr)$/.test(methodName) && typeof args[1] !== 'undefined') ||
                     (/^(bind|one)$/.test(methodName) && version >= '1.4' && /* Data no passed as [1] */!isFunction(args[2]))
                 )
                ) {
