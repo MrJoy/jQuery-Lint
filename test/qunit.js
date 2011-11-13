@@ -1,11 +1,13 @@
 /**
- * QUnit 1.1.0 - A JavaScript Unit Testing Framework
+ * QUnit 1.2.0pre - A JavaScript Unit Testing Framework
  *
  * http://docs.jquery.com/QUnit
  *
  * Copyright (c) 2011 John Resig, Jörn Zaefferer
  * Dual licensed under the MIT (MIT-LICENSE.txt)
  * or GPL (GPL-LICENSE.txt) licenses.
+ * Pulled Live from Git Sun Nov 13 18:50:01 UTC 2011
+ * Last Commit: 991175fca8f66f1ac9a3efa71759b6ebf684b8d7
  */
 
 (function(window) {
@@ -112,7 +114,7 @@ Test.prototype = {
 
 			// Restart the tests if they're blocking
 			if ( config.blocking ) {
-				start();
+				QUnit.start();
 			}
 		}
 	},
@@ -1000,7 +1002,9 @@ function extend(a, b) {
 	for ( var prop in b ) {
 		if ( b[prop] === undefined ) {
 			delete a[prop];
-		} else {
+
+		// Avoid "Member not found" error in IE8 caused by setting window.constructor
+		} else if ( prop !== "constructor" || a !== window ) {
 			a[prop] = b[prop];
 		}
 	}
@@ -1062,6 +1066,10 @@ QUnit.equiv = function () {
 			}
 		}
 	}
+
+	var getProto = Object.getPrototypeOf || function (obj) {
+		return obj.__proto__;
+	};
 
 	var callbacks = function () {
 
@@ -1152,7 +1160,13 @@ QUnit.equiv = function () {
 				// comparing constructors is more strict than using
 				// instanceof
 				if (a.constructor !== b.constructor) {
-					return false;
+					// Allow objects with no prototype to be equivalent to
+					// objects with Object as their constructor.
+					if (!((getProto(a) === null && getProto(b) === Object.prototype) ||
+						  (getProto(b) === null && getProto(a) === Object.prototype)))
+					{
+						return false;
+					}
 				}
 
 				// stack constructor before traversing properties
