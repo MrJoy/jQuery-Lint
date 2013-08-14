@@ -1,7 +1,7 @@
 /**
  * jQuery Lint
  * ---
- * VERSION 1.1
+ * VERSION 1.2
  * ---
  * jQuery lint creates a thin blanket over jQuery that'll
  * report any potentially erroneous activity to the console.
