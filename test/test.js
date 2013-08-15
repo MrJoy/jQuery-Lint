@@ -1,7 +1,22 @@
 // TODO: TEST NESTED FUNCTION CALLS E.g. filter(function(){ .. some invalid call .. })
 (function($){
+function is_at_least_version(version) {
+  var expected_version = version.split('.').map(function(x) { return parseInt(x); });
+  var current_version = $.fn.jquery.split('.').map(function(x) { return parseInt(x); });
+  var common_element_count = [expected_version.length, current_version.length].sort()[0];
+
+  var is_at_least_x = true;
+  for(var i = 0; i < common_element_count; i += 1) {
+    if(expected_version[i] < current_version[i]) {
+      is_at_least_x = false;
+    }
+  }
+
+  return is_at_least_x;
+}
 
 test('init', function() {
+    expect(0);
     jQuery.LINT.console = {
         group:function(a,b,c){
             //window.console.group.apply(null, arguments);
@@ -44,7 +59,7 @@ test('jQuery()', function(){
     expect(4);
     $.LINT.level = 1;
 
-    if ($.fn.jquery >= '1.4') jQuery();
+    if (is_at_least_version('1.4')) jQuery();
     $(document).ready(function() {});
     $(function() {});
 
@@ -110,19 +125,21 @@ test('attr()', function(){
 test('data()', function(){
     var struct = $('<div><a/><a/></div>');
 
-    if ($.fn.jquery >= '1.4') {
-        expect(3);
+    if (is_at_least_version('1.4')) {
+          expect(3);
 
-        // working
-        jQuery.data(document.body, 'data', 'data');
-        jQuery.data(document.body, 'events', undefined, true);
-        $('<a/>').data('data', 'data');
-        $('<a/>').data('data');
+          // working
+          jQuery.data(document.body, 'data', 'data');
+          jQuery.data(document.body, 'events', undefined, true);
+          $('<a/>').data('data', 'data');
+          $('<a/>').data('data');
 
-        // failing
-        jQuery.data(struct, 'data', 'data');
-        jQuery.data([]);
-        jQuery.data({});
+          // failing
+          jQuery.data(struct, 'data', 'data');
+          jQuery.data([]);
+          jQuery.data({});
+    } else {
+        expect(0);
     }
 });
 
@@ -145,18 +162,25 @@ test('bind()', function(){
 });
 
 test('live()/delegate()', function(){
-    if ($.fn.jquery >= '1.4') {
-        expect(2);
+    if (is_at_least_version('1.4')) {
+        if(is_at_least_version('1.9')) {
+            // Deprecated functionality!
+            expect(0);
+        } else {
+            expect(2);
 
-        //  failing
-        $('<a/>').live('a','b','c','d');
-        $('<a/>').live('b');
-        $('<a/>').live({});
+            //  failing
+            $('<a/>').live('a','b','c','d');
+            $('<a/>').live('b');
+            $('<a/>').live({});
 
-        // working
-        $('<a/>').live('a',function(){});
-        $('<a/>').live('b', {/*data*/}, function(){});
-        $('<a/>').live('click', {a:1}, function(){});
+            // working
+            $('<a/>').live('a',function(){});
+            $('<a/>').live('b', {/*data*/}, function(){});
+            $('<a/>').live('click', {a:1}, function(){});
+        }
+    } else {
+        expect(0);
     }
 });
 
