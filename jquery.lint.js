@@ -327,6 +327,24 @@
 
     }
 
+    function compareVersion(ver) {
+      if(ver == undefined) { return 1; }
+      var expected_version = ver.split('.').map(function(x) { return parseInt(x); });
+      // TODO: Cache this.
+      var current_version = _jQuery.fn.jquery.split('.').map(function(x) { return parseInt(x); });
+      var common_element_count = [expected_version.length, current_version.length].sort()[0];
+
+      for(var i = 0; i < common_element_count; i += 1) {
+        if(current_version[i] < expected_version[i]) {
+          return -1
+        } else if(current_version[i] < expected_version[i]) {
+          return 1;
+        }
+      }
+
+      return 0;
+    }
+
     function isValidArgumentList(args, sig) {
 
         // Determine if argument list complies with
@@ -336,7 +354,7 @@
             argLength = args.length,
             nextIsOptional = false;
 
-        if (version < sig.added) {
+        if (compareVersion(sig.added) < 0) {
             // Too new
             return false;
         }
@@ -547,7 +565,7 @@
                 _console.log(locale.youPassed, args);
                 _console.group(locale.availableSigsInclude);
                     each(sigs, function(i, sig){
-                        if (version < sig.added) {
+                        if (compareVersion(sig.added) < 0) {
                             return;
                         }
 
