@@ -26,7 +26,7 @@ Now, just use jQuery as you normally would. When you do something that jQuery Li
 
 ### Screenshot
 
-![jquery.lint.js preview](http://img13.imageshack.us/img13/9527/lint.png)
+![jquery.lint.js preview](https://raw.github.com/MrJoy/jQuery-Lint/master/etc/lint.png)
 
 **Read more about jQuery Lint in the [wiki](http://wiki.github.com/jamespadolsey/jQuery-Lint/)!**
 
