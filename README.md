@@ -32,9 +32,10 @@ Now, just use jQuery as you normally would. When you do something that jQuery Li
 
 ### License
 
-    * Dual licensed under the MIT and GPL licenses.
-    *    - http://www.opensource.org/licenses/mit-license.php
-    *    - http://www.gnu.org/copyleft/gpl.html
+Dual licensed under the MIT and GPL licenses.
+
+* http://www.opensource.org/licenses/mit-license.php
+* http://www.gnu.org/copyleft/gpl.html
 
 ## Status and Known Issues
 
