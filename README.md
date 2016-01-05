@@ -22,7 +22,7 @@ Include it, **after jQuery** like this:
 
 Now, just use jQuery as you normally would. When you do something that jQuery Lint deems incorrect or a bad practice then you'll receive a warning in the console. Currently, it only works with Firebug (in Firefox). You can easily define another reporting mechanism within the script itself, but there's little reason to; the errors it reports are browser-agnostic, so you may as well do your testing in Firefox w/ Firebug.
 
-**NOTE** - jQuery-Lint is shipped with [FireQuery](https://github.com/darwin/firequery).
+**NOTE** - jQuery-Lint is shipped with [FireQuery](https://github.com/binaryage/firequery).
 
 ### Screenshot
 
